@@ -1,0 +1,5 @@
+name: MixCraft Hub
+version: '1.0-SNAPSHOT'
+main: it.mixcraft.mixcrafthub.MixCraftHub
+author: Gaethanos__
+description: Plugin per /hub dedicato a MixCraft?

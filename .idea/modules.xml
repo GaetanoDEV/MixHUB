@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MixCraftHub.iml" filepath="$PROJECT_DIR$/MixCraftHub.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MixHUB.iml" filepath="$PROJECT_DIR$/MixHUB.iml" />
     </modules>
   </component>
 </project>
