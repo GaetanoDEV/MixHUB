@@ -17,11 +17,13 @@ import java.util.logging.Level;
 
 public class MixCraftHub extends Plugin {
     private Configuration configuration;
+    private String consoleOnlyMessage;
+    private String configReloadedMessage;
 
     public void onEnable() {
         // Messaggio di avvio
-        getLogger().log(Level.INFO, "MixHUB Plugin started!");
-        // Caria o crea configurazione
+        getLogger().log(Level.INFO, "MixHUB Plugin started succesfully!");
+        // Carica o crea configurazione
         File configFile = new File(getDataFolder(), "config.yml");
         if (!configFile.exists()) {
             configFile.getParentFile().mkdirs();
@@ -30,28 +32,31 @@ public class MixCraftHub extends Plugin {
             } catch (IOException e){
                 e.printStackTrace();
             }
-
         }
         // Carica la configurazione
         try {
             configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
+            consoleOnlyMessage = ChatColor.translateAlternateColorCodes('&', configuration.getString("messages.console-only"));
+            configReloadedMessage = ChatColor.translateAlternateColorCodes('&', configuration.getString("messages.config-reloaded"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // Registra il comando /hub
+        // Registra i comandi
         getProxy().getPluginManager().registerCommand(this, new HubCommand());
-
+        getProxy().getPluginManager().registerCommand(this, new ReloadCommand());
     }
 
     @Override
     public void onDisable() {
         getLogger().log(Level.INFO, "MixHUB - Plugin disabled!");
     }
+
     private class HubCommand extends Command {
         public HubCommand() {
             super("hub");
         }
+
         @Override
         public void execute(CommandSender sender, String[] args){
             if (sender instanceof ProxiedPlayer) {
@@ -69,7 +74,36 @@ public class MixCraftHub extends Plugin {
                 } else  {
                     player.sendMessage("Configurazione non valida!");
                 }
+            }
+        }
+    }
 
+    private class ReloadCommand extends Command {
+        public ReloadCommand() {
+            super("mixhubreload");
+        }
+
+        @Override
+        public void execute(CommandSender sender, String[] args) {
+            if (sender instanceof ProxiedPlayer) {
+                sender.sendMessage(consoleOnlyMessage);
+                return;
+            }
+
+            reloadConfiguration();
+            sender.sendMessage(configReloadedMessage);
+        }
+    }
+
+    private void reloadConfiguration() {
+        File configFile = new File(getDataFolder(), "config.yml");
+        if (configFile.exists()) {
+            try {
+                configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
+                consoleOnlyMessage = ChatColor.translateAlternateColorCodes('&', configuration.getString("messages.console-only"));
+                configReloadedMessage = ChatColor.translateAlternateColorCodes('&', configuration.getString("messages.config-reloaded"));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
