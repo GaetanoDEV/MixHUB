@@ -3,3 +3,5 @@ feedback-message: "&7You have been teleported to Hub..."
 messages:
   console-only: "&cThis command can be executed only for console!"
   config-reloaded: "&aConfiguration reloaded successfully!"
+connect-delay-seconds: 3
+delay-message: "&ePlease wait for teleportation..."

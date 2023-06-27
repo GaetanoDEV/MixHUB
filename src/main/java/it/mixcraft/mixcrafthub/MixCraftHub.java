@@ -19,6 +19,7 @@ public class MixCraftHub extends Plugin {
     private Configuration configuration;
     private String consoleOnlyMessage;
     private String configReloadedMessage;
+    private int connectDelaySeconds;
 
     public void onEnable() {
         // Messaggio di avvio
@@ -38,6 +39,7 @@ public class MixCraftHub extends Plugin {
             configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
             consoleOnlyMessage = ChatColor.translateAlternateColorCodes('&', configuration.getString("messages.console-only"));
             configReloadedMessage = ChatColor.translateAlternateColorCodes('&', configuration.getString("messages.config-reloaded"));
+            connectDelaySeconds = configuration.getInt("connect-delay-seconds", 0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,16 +64,29 @@ public class MixCraftHub extends Plugin {
             if (sender instanceof ProxiedPlayer) {
                 ProxiedPlayer player = (ProxiedPlayer) sender;
 
+
                 // Ottiene il server della lobby da config
                 String lobbyServer = configuration.getString("lobby-server");
                 String feedbackMessage = configuration.getString("feedback-message");
+                String delayMessage = configuration.getString("delay-message");
+
 
                 if (lobbyServer != null) {
-                    player.connect(getProxy().getServerInfo(lobbyServer));
-                    if (feedbackMessage != null) {
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', feedbackMessage));
+                    if (connectDelaySeconds > 0) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', delayMessage));
+                        getProxy().getScheduler().schedule(MixCraftHub.this, () -> {
+                            player.connect(getProxy().getServerInfo(lobbyServer));
+                            if (feedbackMessage != null) {
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', feedbackMessage));
+                            }
+                        }, connectDelaySeconds, java.util.concurrent.TimeUnit.SECONDS);
+                    } else {
+                        player.connect(getProxy().getServerInfo(lobbyServer));
+                        if (feedbackMessage != null) {
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', feedbackMessage));
+                        }
                     }
-                } else  {
+                } else {
                     player.sendMessage("Configurazione non valida!");
                 }
             }
@@ -102,6 +117,7 @@ public class MixCraftHub extends Plugin {
                 configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
                 consoleOnlyMessage = ChatColor.translateAlternateColorCodes('&', configuration.getString("messages.console-only"));
                 configReloadedMessage = ChatColor.translateAlternateColorCodes('&', configuration.getString("messages.config-reloaded"));
+                connectDelaySeconds = configuration.getInt("connect-delay-seconds", 0);
             } catch (IOException e) {
                 e.printStackTrace();
             }

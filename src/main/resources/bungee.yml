@@ -1,5 +1,5 @@
 name: MixCraft Hub
-version: '1.1'
+version: '1.2'
 main: it.mixcraft.mixcrafthub.MixCraftHub
 author: Gaethanos__
 description: Plugin per /hub dedicato a MixCraft♥

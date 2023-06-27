@@ -9,8 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="443903ea-0898-4948-b9ae-0592c0a1d789" name="Changes" comment="Added /mixhubreload command">
+    <list default="true" id="443903ea-0898-4948-b9ae-0592c0a1d789" name="Changes" comment="Fix plugin version (1.0 &gt; 1.1)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/mixcraft/mixcrafthub/MixCraftHub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/mixcraft/mixcrafthub/MixCraftHub.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/bungee.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bungee.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,13 +105,22 @@
       <option name="project" value="LOCAL" />
       <updated>1687688342735</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fix plugin version (1.0 &gt; 1.1)">
+      <option name="closed" value="true" />
+      <created>1687688498019</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1687688498019</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="MixCraftHUB &gt; MixHUB" />
     <MESSAGE value="Added /mixhubreload command" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added /mixhubreload command" />
+    <MESSAGE value="Fix plugin version (1.0 &gt; 1.1)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix plugin version (1.0 &gt; 1.1)" />
   </component>
 </project>
